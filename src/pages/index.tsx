@@ -96,17 +96,22 @@ export default function Home(props: HomeProps) {
 }
 
 export const getStaticProps = async () => {
+    const baseURL = 'http://localhost:3333/'
+
     const [poolCountResponse, guessCountResponse, userCountResponse] = await Promise.all([
-      api.get('pools/count'),
-      api.get('guesses/count'), 
-      api.get('users/count'),
+      fetch(baseURL + 'pools/count'),
+      fetch(baseURL +'guesses/count'), 
+      fetch(baseURL +'users/count'),
     ])
+    const dataPool = await poolCountResponse.json()
+    const dataGuess = await guessCountResponse.json()
+    const dataCount = await userCountResponse.json()
 
     return {
-      props: {
-        poolCount: poolCountResponse.data.count,
-        guessCount: guessCountResponse.data.count,
-        userCount: userCountResponse.data.count,
+      props: {        
+        poolCount: dataPool.count,
+        guessCount: dataGuess.count,
+        userCount: dataCount.count,
       }
     }  
 }
