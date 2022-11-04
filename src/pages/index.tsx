@@ -3,7 +3,7 @@ import appPreviewImg from '../assets/app-nlw-copa-preview.png'
 import logoImg from '../assets/logo.svg'
 import userAvatarExempleImg from '../assets/users-avatar-example.png'
 import iconCheckImg from '../assets/icon-check.svg'
-import { api } from '../lib/axios'
+import { api, baseURL } from '../lib/axios'
 import { FormEvent, useState } from 'react'
 
 
@@ -96,8 +96,6 @@ export default function Home(props: HomeProps) {
 }
 
 export const getStaticProps = async () => {
-    const baseURL = 'http://localhost:3333/'
-
     const [poolCountResponse, guessCountResponse, userCountResponse] = await Promise.all([
       fetch(baseURL + 'pools/count'),
       fetch(baseURL +'guesses/count'), 
